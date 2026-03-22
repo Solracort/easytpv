@@ -1,0 +1,11 @@
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.
+
+Error: src/app/features/orders/order-complete-modal/order-complete-modal.component.ts:26:41 - error TS2339: Property 'completeOrder' does not exist on type 'OrderService'.
+
+26     const completed = this.orderService.completeOrder(this.paymentMethod, this.tip);
+                                           ~~~~~~~~~~~~~
+
+
+

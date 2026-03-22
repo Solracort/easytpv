@@ -1,0 +1,108 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Producto' : 'Crear Nuevo Producto' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="productForm" class="product-form">
+    <!-- Nombre -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre del producto</mat-label>
+      <input matInput formControlName="name" placeholder="Ej: Burger Normal" />
+      <mat-error *ngIf="productForm.get('name')?.hasError('required')">
+        El nombre es requerido
+      </mat-error>
+      <mat-error *ngIf="productForm.get('name')?.hasError('minLength')">
+        El nombre debe tener al menos 2 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Categoría -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let cat of categories" [value]="cat">
+          {{ cat }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="productForm.get('category')?.hasError('required')">
+        La categoría es requerida
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Precio -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Precio (€)</mat-label>
+      <input matInput type="number" formControlName="price" step="0.01" min="0" />
+      <mat-error *ngIf="productForm.get('price')?.hasError('required')">
+        El precio es requerido
+      </mat-error>
+      <mat-error *ngIf="productForm.get('price')?.hasError('min')">
+        El precio debe ser mayor que 0
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Descripción -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" placeholder="Descripción del producto" rows="3"></textarea>
+      <mat-error *ngIf="productForm.get('description')?.hasError('required')">
+        La descripción es requerida
+      </mat-error>
+    </mat-form-field>
+
+    <!-- URL de Imagen -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>URL de imagen</mat-label>
+      <input matInput formControlName="imageUrl" placeholder="https://..." />
+      <mat-error *ngIf="productForm.get('imageUrl')?.hasError('required')">
+        La URL de imagen es requerida
+      </mat-error>
+      <mat-error *ngIf="productForm.get('imageUrl')?.hasError('pattern')">
+        Debe ser una URL válida (comenzar con http:// o https://)
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Preview de Imagen -->
+    <div *ngIf="productForm.get('imageUrl')?.valid" class="image-preview">
+      <img [src]="productForm.get('imageUrl')?.value" [alt]="productForm.get('name')?.value" />
+    </div>
+
+    <!-- Disponible -->
+    <mat-slide-toggle formControlName="available" class="full-width toggle-field">
+      ¿Producto disponible?
+    </mat-slide-toggle>
+
+    <!-- Ingredientes por defecto -->
+    <div class="ingredients-section">
+      <h4>Ingredientes incluidos por defecto</h4>
+      <div class="ingredients-chips">
+        <mat-chip-set>
+          <mat-chip 
+            *ngFor="let ing of availableIngredients"
+            (click)="toggleIngredient(ing)"
+            [class.selected]="isIngredientSelected(ing)">
+            <mat-icon *ngIf="!isIngredientSelected(ing)">add</mat-icon>
+            <mat-icon *ngIf="isIngredientSelected(ing)">done</mat-icon>
+            {{ ing }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <!-- Ingredientes seleccionados -->
+      <div *ngIf="selectedIngredientsInput.length > 0" class="selected-ingredients">
+        <h5>Seleccionados:</h5>
+        <mat-chip-set>
+          <mat-chip *ngFor="let ing of selectedIngredientsInput" removable (removed)="removeIngredient(ing)">
+            <mat-icon matChipRemove>clear</mat-icon>
+            {{ ing }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="productForm.invalid">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }} Producto
+  </button>
+</mat-dialog-actions>

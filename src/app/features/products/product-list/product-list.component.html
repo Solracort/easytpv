@@ -1,0 +1,55 @@
+<div class="products-container">
+  <div class="header-section">
+    <h2>Catálogo de Productos</h2>
+    <button mat-raised-button color="accent" (click)="toggleAdminPanel()">
+      <mat-icon>{{ showAdminPanel ? 'visibility' : 'admin_panel_settings' }}</mat-icon>
+      {{ showAdminPanel ? 'Ver Catálogo' : 'Panel Admin' }}
+    </button>
+  </div>
+
+  <!-- Vista de Admin Panel -->
+  <div *ngIf="showAdminPanel" class="admin-section">
+    <app-admin-panel></app-admin-panel>
+  </div>
+
+  <!-- Vista de Catálogo -->
+  <div *ngIf="!showAdminPanel" class="catalog-section">
+    <div class="filters-section">
+      <mat-form-field appearance="outline">
+        <mat-label>Búsqueda</mat-label>
+        <input matInput (keyup)="onSearchChange($event)" placeholder="Nombre del producto...">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select [value]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
+          <mat-option value="">Todas</mat-option>
+          <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="product-grid">
+      <mat-card *ngFor="let product of filteredProducts" 
+                class="product-card"
+                [class.unavailable]="!product.available">
+        <div class="product-image-wrapper">
+          <img [src]="product.imageUrl" [alt]="product.name" />
+          <div *ngIf="!product.available" class="unavailable-badge">No disponible</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-category">{{ product.category }}</div>
+          <div class="product-price">€{{ product.price | number: '1.2-2' }}</div>
+          <p class="product-description">{{ product.description }}</p>
+        </div>
+      </mat-card>
+    </div>
+
+    <div *ngIf="filteredProducts.length === 0" class="no-results">
+      <mat-icon>inventory_2</mat-icon>
+      <p>No hay productos disponibles</p>
+    </div>
+  </div>
+</div>
+

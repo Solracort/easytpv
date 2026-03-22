@@ -1,0 +1,85 @@
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px 0;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .toggle-field {
+    padding: 8px 0;
+  }
+
+  .image-preview {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .ingredients-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    h5 {
+      margin: 12px 0 8px 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .ingredients-chips {
+      margin-bottom: 16px;
+
+      mat-chip {
+        cursor: pointer;
+        margin: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+
+        &.selected {
+          background-color: #d32f2f !important;
+          color: white !important;
+
+          mat-icon {
+            color: white;
+          }
+        }
+      }
+    }
+
+    .selected-ingredients {
+      background-color: #f9f9f9;
+      padding: 12px;
+      border-radius: 4px;
+
+      mat-chip {
+        margin: 4px;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

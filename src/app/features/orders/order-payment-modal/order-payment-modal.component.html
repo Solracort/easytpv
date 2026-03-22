@@ -1,0 +1,87 @@
+<div class="payment-modal">
+  <h2 mat-dialog-title>COBRAR PEDIDO</h2>
+  
+  <mat-dialog-content>
+    <!-- Resumen de la orden -->
+    <div class="order-summary">
+      <div class="summary-row">
+        <span class="label">Mesa/Nombre:</span>
+        <span class="value">
+          {{ order.isForTakeaway ? 'Para Llevar: ' + order.customerName : 'Mesa ' + order.tableNumber }}
+        </span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Items:</span>
+        <span class="value">{{ order.items.length }}</span>
+      </div>
+      <div class="summary-row total-row">
+        <span class="label">Subtotal:</span>
+        <span class="value">€{{ order.total | number: '1.2-2' }}</span>
+      </div>
+    </div>
+
+    <!-- Propina -->
+    <div class="tip-section">
+      <h4>Propina</h4>
+      
+      <div class="tip-buttons">
+        <button mat-raised-button (click)="addQuickTip(10)">
+          10% (€{{ (order.total * 0.1) | number: '1.2-2' }})
+        </button>
+        <button mat-raised-button (click)="addQuickTip(15)">
+          15% (€{{ (order.total * 0.15) | number: '1.2-2' }})
+        </button>
+        <button mat-raised-button (click)="addQuickTip(20)">
+          20% (€{{ (order.total * 0.2) | number: '1.2-2' }})
+        </button>
+      </div>
+
+      <mat-form-field appearance="outline" class="tip-input">
+        <mat-label>Cantidad personalizada</mat-label>
+        <input matInput [(ngModel)]="tip" type="number" step="0.01" (blur)="calculateTotal()" />
+        <span matSuffix>€</span>
+      </mat-form-field>
+    </div>
+
+    <!-- Método de pago -->
+    <div class="payment-method">
+      <h4>Método de Pago</h4>
+      <mat-radio-group [(ngModel)]="paymentMethod">
+        <mat-radio-button value="cash">
+          <mat-icon>money</mat-icon>
+          Efectivo
+        </mat-radio-button>
+        <mat-radio-button value="card">
+          <mat-icon>credit_card</mat-icon>
+          Tarjeta
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- Total final -->
+    <div class="final-total">
+      <div class="total-breakdown">
+        <div class="breakdown-row">
+          <span>Subtotal:</span>
+          <span>€{{ order.total | number: '1.2-2' }}</span>
+        </div>
+        <div class="breakdown-row" *ngIf="tip > 0">
+          <span>Propina:</span>
+          <span>€{{ tip | number: '1.2-2' }}</span>
+        </div>
+        <div class="breakdown-row total">
+          <span>TOTAL A COBRAR:</span>
+          <span>€{{ totalWithTip | number: '1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="processPayment()">
+      <mat-icon>check_circle</mat-icon>
+      Confirmar Pago
+    </button>
+  </mat-dialog-actions>
+</div>

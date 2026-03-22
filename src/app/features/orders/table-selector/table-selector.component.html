@@ -1,0 +1,145 @@
+<div class="table-selector-container">
+  <!-- Encabezado -->
+  <div class="header-section">
+    <h2>Gestión de Pedidos</h2>
+    <p class="subtitle">Selecciona un pedido en curso o crea uno nuevo</p>
+  </div>
+
+  <!-- Sección de Pedidos en Curso -->
+  <div class="section pedidos-activos-section">
+    <div class="section-header">
+      <mat-icon>receipt</mat-icon>
+      <h3>Pedidos en Curso</h3>
+    </div>
+    
+    <div class="orders-grid" *ngIf="activeOrders && activeOrders.length > 0; else noOrders">
+      <button 
+        *ngFor="let order of activeOrders" 
+        class="order-card"
+        [class.active]="currentTableId === (order.tableNumber || order.customerName)"
+        (click)="selectTable(order.tableNumber || order.customerName || '')"
+      >
+        <div class="order-icon">
+          <mat-icon>{{ order.isForTakeaway ? 'shopping_bag' : 'table_restaurant' }}</mat-icon>
+        </div>
+        <div class="order-info">
+          <div class="order-title">
+            {{ order.isForTakeaway ? 'Llevar: ' + order.customerName : 'Mesa ' + order.tableNumber }}
+          </div>
+          <div class="order-details">
+            <span class="items-badge">{{ order.items.length }} items</span>
+            <span class="total-badge">€{{ order.total | number: '1.2-2' }}</span>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <ng-template #noOrders>
+      <div class="empty-state">
+        <mat-icon>shopping_cart</mat-icon>
+        <p>Sin pedidos en curso</p>
+        <small>Crea uno nuevo para empezar</small>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Sección de Crear Nuevo Pedido -->
+  <div class="section crear-pedido-section">
+    <div class="section-header">
+      <mat-icon>add_circle</mat-icon>
+      <h3>Nuevo Pedido</h3>
+    </div>
+
+    <!-- Opciones rápidas (si no muestra formulario) -->
+    <div *ngIf="!showNewOrderForm" class="quick-options">
+      <!-- Mesas disponibles rápidas -->
+      <div class="option-group">
+        <div class="group-label">
+          <mat-icon>table_restaurant</mat-icon>
+          <span>Para Consumir en Local</span>
+        </div>
+        <div class="tables-grid">
+          <button 
+            *ngFor="let table of getAvailableTables()" 
+            (click)="quickSelectTable(table)"
+            class="table-btn"
+            [title]="'Mesa ' + table"
+          >
+            <span>Mesa</span>
+            <strong>{{ table }}</strong>
+          </button>
+        </div>
+      </div>
+
+      <!-- Separador -->
+      <div class="divider">o</div>
+
+      <!-- Opción Para Llevar -->
+      <div class="option-group">
+        <button 
+          mat-raised-button 
+          color="accent" 
+          (click)="openTakeAwayForm()"
+          class="takeaway-btn"
+          matTooltip="Crear pedido para llevar"
+        >
+          <mat-icon>shopping_bag</mat-icon>
+          <span>Para Llevar</span>
+        </button>
+      </div>
+
+      <!-- Más opciones (mesa personalizada) -->
+      <button 
+        mat-stroked-button
+        (click)="openNewOrderForm()"
+        class="more-options-btn"
+        matTooltip="Mesa personalizada o para llevar con nombre específico"
+      >
+        <mat-icon>more_horiz</mat-icon>
+        Más opciones
+      </button>
+    </div>
+
+    <!-- Formulario personalizado -->
+    <div *ngIf="showNewOrderForm" class="custom-form">
+      <div class="form-content">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>
+            {{ isForTakeaway ? 'Nombre del cliente' : 'Número de mesa' }}
+          </mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="tableNumberOrName" 
+            [placeholder]="isForTakeaway ? 'Ej: Juan Pérez' : 'Ej: 5'"
+            (keyup.enter)="createNewOrder()"
+            autofocus
+          />
+        </mat-form-field>
+
+        <mat-slide-toggle [(ngModel)]="isForTakeaway" class="toggle-field">
+          <span class="toggle-label">{{ isForTakeaway ? '📦 Para Llevar' : '🍕 En Local' }}</span>
+        </mat-slide-toggle>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          mat-button 
+          (click)="cancelNewOrder()"
+        >
+          <mat-icon>close</mat-icon>
+          Cancelar
+        </button>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="createNewOrder()"
+          [disabled]="!tableNumberOrName.trim()"
+        >
+          <mat-icon>check_circle</mat-icon>
+          Crear Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

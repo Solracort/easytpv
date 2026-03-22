@@ -1,0 +1,198 @@
+/* Global Styles and Material Theme */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Custom Color Palette for Hamburguesería */
+$primary-color: #D32F2F; /* Red */
+$accent-color: #FF9800; /* Orange */
+$warn-color: #F57C00; /* Darker Orange */
+$success-color: #4CAF50; /* Green */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Material Theme Customization */
+.mat-toolbar {
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+/* Buttons - Large size for easy clicking */
+.mat-button,
+.mat-raised-button,
+.mat-icon-button {
+  min-height: 48px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+
+  &.large-btn {
+    min-height: 60px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+/* Cards */
+.mat-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+/* Form Fields */
+.mat-form-field {
+  width: 100%;
+  
+  .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Grid Layout for Products */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}
+
+/* Product Card */
+.product-card {
+  cursor: pointer;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $primary-color;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba($primary-color, 0.2);
+  }
+
+  img {
+    max-width: 80%;
+    max-height: 100px;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+
+  .product-name {
+    font-weight: 500;
+    font-size: 14px;
+    color: #212121;
+    margin-bottom: 4px;
+  }
+
+  .product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: $primary-color;
+  }
+}
+
+/* Dialogs */
+.mat-dialog-container {
+  border-radius: 8px;
+}
+
+/* Summary Cards */
+.summary-card {
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  &.sales {
+    background: linear-gradient(135deg, $primary-color 0%, $accent-color 100%);
+  }
+
+  &.expenses {
+    background: linear-gradient(135deg, #f57c00 0%, #e64a19 100%);
+  }
+
+  &.profit {
+    background: linear-gradient(135deg, $success-color 0%, #388e3c 100%);
+  }
+
+  .summary-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .summary-value {
+    font-size: 32px;
+    font-weight: bold;
+  }
+}
+
+/* Tables */
+.mat-table {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-header-cell {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #212121;
+}
+
+/* Loading and Utility */
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+/* Accessibility - Focus Styles */
+button:focus,
+a:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .app-navigation,
+  .mat-toolbar {
+    display: none;
+  }
+}
+

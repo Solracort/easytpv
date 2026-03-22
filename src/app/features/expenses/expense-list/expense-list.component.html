@@ -1,0 +1,61 @@
+<div class="expense-list-container">
+  <h2>Gastos del Día</h2>
+
+  <div class="header-section">
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (change)="onDateChange(selectedDate)" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="openAddExpenseDialog()" class="add-btn">
+      <mat-icon>add</mat-icon>
+      Agregar Gasto
+    </button>
+  </div>
+
+  <div class="expenses-section">
+    <mat-table [dataSource]="expenses" class="expenses-table">
+      <!-- Descripción Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+        <mat-cell *matCellDef="let expense">{{ expense.description }}</mat-cell>
+      </ng-container>
+
+      <!-- Monto Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef>Monto</mat-header-cell>
+        <mat-cell *matCellDef="let expense">€{{ expense.amount | number: '1.2-2' }}</mat-cell>
+      </ng-container>
+
+      <!-- Hora Column -->
+      <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef>Hora</mat-header-cell>
+        <mat-cell *matCellDef="let expense">{{ expense.date | date: 'short' }}</mat-cell>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let expense">
+          <button mat-icon-button color="warn" (click)="deleteExpense(expense.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['description', 'amount', 'time', 'actions']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['description', 'amount', 'time', 'actions'];"></mat-row>
+    </mat-table>
+
+    <div *ngIf="expenses.length === 0" class="no-expenses">
+      <p>No hay gastos registrados para esta fecha</p>
+    </div>
+
+    <div *ngIf="expenses.length > 0" class="total-section">
+      <span>Total Gastos:</span>
+      <span class="total-amount">€{{ todayTotal | number: '1.2-2' }}</span>
+    </div>
+  </div>
+</div>

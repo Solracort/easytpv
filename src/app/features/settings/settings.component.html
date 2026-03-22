@@ -1,0 +1,64 @@
+<div class="settings-container">
+  <h2>Configuración</h2>
+
+  <div class="settings-form">
+    <div class="section">
+      <h3>Información del Negocio</h3>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre del Negocio</mat-label>
+        <input matInput [(ngModel)]="businessName" placeholder="EasyTPV" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ubicación / Dirección</mat-label>
+        <input matInput [(ngModel)]="businessLocation" placeholder="Dirección del local..." />
+      </mat-form-field>
+    </div>
+
+    <div class="section">
+      <h3>Configuración de API</h3>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>URL de API</mat-label>
+        <input matInput [(ngModel)]="apiUrl" placeholder="http://localhost:3000/api" />
+      </mat-form-field>
+      
+      <p class="hint-text">
+        Esta URL será utilizada para sincronizar datos con el servidor backend.
+      </p>
+    </div>
+
+    <div class="section">
+      <h3>Acciones</h3>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" (click)="saveSettings()">
+          <mat-icon>save</mat-icon>
+          Guardar Configuración
+        </button>
+
+        <button mat-raised-button (click)="exportData()">
+          <mat-icon>download</mat-icon>
+          Exportar Datos
+        </button>
+
+        <button mat-raised-button color="warn" (click)="clearData()">
+          <mat-icon>delete_outline</mat-icon>
+          Limpiar Datos Locales
+        </button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <mat-icon>info</mat-icon>
+      <div>
+        <h4>Nota sobre persistencia</h4>
+        <p>
+          Los datos se guardan localmente en tu navegador. Cuando se integre con el backend,
+          se sincronizarán automáticamente con el servidor.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

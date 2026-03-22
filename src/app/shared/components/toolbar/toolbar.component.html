@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <span class="toolbar-title">{{ businessName }}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/settings">
+      <mat-icon>settings</mat-icon>
+      <span>Configuración</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>help</mat-icon>
+      <span>Ayuda</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

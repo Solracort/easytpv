@@ -1,0 +1,136 @@
+.payment-modal {
+  .order-summary {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+
+      &.total-row {
+        font-weight: 600;
+        font-size: 16px;
+        border: none;
+        padding-top: 12px;
+        margin-top: 8px;
+        border-top: 2px solid #e0e0e0;
+
+        .value {
+          color: #D32F2F;
+        }
+      }
+
+      .label {
+        color: #666;
+        font-weight: 500;
+      }
+
+      .value {
+        font-weight: 600;
+        color: #333;
+      }
+    }
+  }
+
+  .tip-section {
+    margin-bottom: 24px;
+
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+    }
+
+    .tip-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+
+      button {
+        padding: 8px 4px !important;
+        font-size: 11px !important;
+        min-width: auto !important;
+      }
+    }
+
+    .tip-input {
+      width: 100%;
+    }
+  }
+
+  .payment-method {
+    margin-bottom: 24px;
+
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+    }
+
+    mat-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      mat-radio-button {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          margin-right: 8px;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  .final-total {
+    background: #FFEBEE;
+    border-left: 4px solid #D32F2F;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    .total-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .breakdown-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+
+        &.total {
+          font-size: 18px;
+          font-weight: 700;
+          color: #D32F2F;
+          border-top: 2px solid #EF5350;
+          padding-top: 8px;
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+
+  mat-dialog-actions {
+    button {
+      min-width: 120px;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}

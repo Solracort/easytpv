@@ -1,0 +1,39 @@
+.app-navigation {
+  display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: white;
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+    min-height: 56px;
+    padding: 0 16px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    mat-icon {
+      margin-right: 4px;
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    &.active {
+      color: #D32F2F;
+      border-bottom-color: #D32F2F;
+    }
+  }
+}

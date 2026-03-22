@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>{{ product.name }}</h2>
+<mat-dialog-content>
+  <div class="product-detail">
+    <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+    <p class="product-description">{{ product.description }}</p>
+    <div class="product-category">{{ product.category }}</div>
+
+    <div class="price-section">
+      <span class="label">Precio unitario:</span>
+      <span class="price">€{{ product.price | number: '1.2-2' }}</span>
+    </div>
+
+    <div class="quantity-section">
+      <button mat-icon-button (click)="decreaseQuantity()">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <input matInput type="number" [(ngModel)]="quantity" min="1" class="quantity-input" />
+      <button mat-icon-button (click)="increaseQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span class="subtotal">Subtotal: €{{ (product.price * quantity) | number: '1.2-2' }}</span>
+    </div>
+
+    <!-- Sección de Ingredientes Incluidos -->
+    <div class="ingredients-section" *ngIf="includedIngredients.length > 0">
+      <h4>Ingredientes Incluidos</h4>
+      <div class="ingredients-list">
+        <mat-chip-set>
+          <mat-chip *ngFor="let ingredient of includedIngredients" removable (removed)="removeIncludedIngredient(ingredient)">
+            <mat-icon matChipRemove>clear</mat-icon>
+            {{ ingredient }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+
+    <!-- Sección de Ingredientes Adicionales -->
+    <div class="additional-ingredients-section">
+      <h4>Agregar Ingredientes</h4>
+      <div class="additional-ingredients-list">
+        <mat-chip-set>
+          <mat-chip 
+            *ngFor="let ingredient of additionalIngredientsAvailable"
+            [attr.aria-label]="'Add ' + ingredient"
+            (click)="addAdditionalIngredient(ingredient)"
+            [class.selected]="isIngredientSelected(ingredient)">
+            <mat-icon *ngIf="!isIngredientSelected(ingredient)">add</mat-icon>
+            <mat-icon *ngIf="isIngredientSelected(ingredient)">done</mat-icon>
+            {{ ingredient }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+
+      <!-- Ingredientes Adicionales Seleccionados -->
+      <div *ngIf="selectedAdditionalIngredients.length > 0" class="selected-additional">
+        <h5>Seleccionados:</h5>
+        <mat-chip-set>
+          <mat-chip *ngFor="let ingredient of selectedAdditionalIngredients" removable (removed)="removeAdditionalIngredient(ingredient)">
+            <mat-icon matChipRemove>clear</mat-icon>
+            {{ ingredient }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" class="notes-field">
+      <mat-label>Notas (opcional)</mat-label>
+      <textarea matInput [(ngModel)]="notes" placeholder="Ej: Sin cebolla, extra queso..."></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="addToCart()" [disabled]="quantity <= 0">
+    Agregar al carrito
+  </button>
+</mat-dialog-actions>

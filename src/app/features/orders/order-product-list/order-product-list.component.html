@@ -1,0 +1,65 @@
+<div class="order-product-list-container">
+  <!-- Estado si no hay pedido activo -->
+  <div *ngIf="!currentOrder" class="no-order-message">
+    <mat-icon>info</mat-icon>
+    <p>Selecciona o crea un pedido para agregar productos</p>
+  </div>
+
+  <!-- Contenido si hay pedido activo -->
+  <div *ngIf="currentOrder" class="products-section">
+    <!-- Búsqueda -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar producto...</mat-label>
+      <input matInput [(ngModel)]="searchTerm" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Filtro por categoría -->
+    <div class="category-tabs">
+      <button 
+        *ngFor="let category of categories"
+        class="category-btn"
+        [class.active]="selectedCategory === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="products-grid">
+      <div 
+        *ngFor="let product of getFilteredProducts()"
+        class="product-card"
+      >
+        <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+        
+        <div class="product-info">
+          <h4 class="product-name">{{ product.name }}</h4>
+          <p class="product-description">{{ product.description }}</p>
+          <div class="product-footer">
+            <span class="price">€{{ product.price | number: '1.2-2' }}</span>
+            <button 
+              mat-raised-button 
+              color="primary"
+              (click)="addProductToOrder(product)"
+              class="add-btn"
+            >
+              <mat-icon>add_shopping_cart</mat-icon>
+              Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sin resultados -->
+    <div 
+      *ngIf="getFilteredProducts().length === 0"
+      class="no-results"
+    >
+      <mat-icon>search_off</mat-icon>
+      <p>No hay productos en esta categoría</p>
+    </div>
+  </div>
+</div>

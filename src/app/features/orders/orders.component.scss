@@ -1,0 +1,94 @@
+.orders-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: #fafafa;
+
+  .orders-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr 400px;
+    gap: 0;
+    height: 100%;
+    overflow: hidden;
+
+    .selector-panel {
+      overflow-y: auto;
+      border-right: 1px solid #e0e0e0;
+      background: white;
+    }
+
+    .products-panel {
+      overflow-y: auto;
+      border-right: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+
+    .cart-panel {
+      overflow-y: auto;
+      background: white;
+    }
+  }
+}
+
+// Tablets
+@media (max-width: 1200px) {
+  .orders-page {
+    .orders-layout {
+      grid-template-columns: 300px 1fr 350px;
+    }
+  }
+}
+
+// Tablets pequeños
+@media (max-width: 1024px) {
+  .orders-page {
+    .orders-layout {
+      grid-template-columns: 1fr 1fr;
+      
+      .selector-panel {
+        border-right: 1px solid #e0e0e0;
+        border-bottom: none;
+      }
+
+      .products-panel {
+        grid-column: 1 / -1;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        max-height: 40vh;
+      }
+
+      .cart-panel {
+        border-right: none;
+      }
+    }
+  }
+}
+
+// Móviles
+@media (max-width: 768px) {
+  .orders-page {
+    .orders-layout {
+      grid-template-columns: 1fr;
+
+      .selector-panel {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        max-height: 35vh;
+      }
+
+      .products-panel {
+        grid-column: 1;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        max-height: 35vh;
+      }
+
+      .cart-panel {
+        border-right: none;
+        max-height: 30vh;
+      }
+    }
+  }
+}

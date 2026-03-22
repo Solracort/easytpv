@@ -1,0 +1,167 @@
+.product-detail {
+  text-align: center;
+
+  .product-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+    margin-bottom: 16px;
+  }
+
+  .product-description {
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  .product-category {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .price-section {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 18px;
+
+    .label {
+      color: #666;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #D32F2F;
+      font-size: 24px;
+    }
+  }
+
+  .quantity-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .subtotal {
+      margin-left: 16px;
+      font-weight: bold;
+      color: #D32F2F;
+    }
+  }
+
+  .ingredients-section {
+    margin: 20px 0;
+    text-align: left;
+
+    h4 {
+      margin-bottom: 12px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      mat-chip {
+        background-color: #E8F5E9;
+        color: #2E7D32;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #C8E6C9;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+
+  .additional-ingredients-section {
+    margin: 20px 0;
+    text-align: left;
+
+    h4 {
+      margin-bottom: 12px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      mat-chip {
+        background-color: #F3E5F5;
+        color: #6A1B9A;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #E1BEE7;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        &.selected {
+          background-color: #D1C4E9;
+          color: #3F51B5;
+          font-weight: 600;
+        }
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
+      }
+    }
+
+    h5 {
+      margin: 16px 0 8px 0;
+      color: #555;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    mat-chip-set:last-of-type {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      mat-chip {
+        background-color: #FFF3E0;
+        color: #E65100;
+
+        &:hover {
+          background-color: #FFE0B2;
+        }
+      }
+    }
+  }
+
+  .notes-field {
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+  }
+}
